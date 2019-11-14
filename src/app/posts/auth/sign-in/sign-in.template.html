@@ -1,0 +1,32 @@
+<mat-card>
+<form (submit)="login(formReference)"  #formReference=ngForm >
+       
+                <mat-form-field>
+                    <input type="email"
+                    matInput
+                    email
+                     required
+                     name="email"
+                     ngModel
+                     #emailReference="ngModel"
+                     placeholder="Enter Email Id"/>
+                    <mat-error *ngIf="emailReference.invalid" >Please Enter Email Id</mat-error>
+                </mat-form-field>
+                <div></div>
+                <mat-form-field>
+                    <input type="password" 
+                    matInput
+                     required
+                     name="password"
+                     ngModel
+                     #passwordReference="ngModel"   
+                      placeholder="Enter valid Password"/>
+                    <mat-error *ngIf="passwordReference.invalid">Please Enter a Valid password</mat-error>
+                </mat-form-field>
+                <div></div>
+                <button type="submit" mat-raised-button color="accent" >Login In</button>
+            
+ </form>   
+</mat-card>
+<mat-spinner *ngIf="spinner" [color]="'warn'"></mat-spinner>
+

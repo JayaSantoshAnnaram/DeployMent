@@ -1,0 +1,10 @@
+mat-accordion{
+    display: block;
+    margin-top: 2rem;
+}
+.elseBock{
+   text-align: center;
+}
+mat-spinner{
+    margin: auto;
+}
