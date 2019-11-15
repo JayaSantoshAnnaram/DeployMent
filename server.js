@@ -6,6 +6,6 @@ const server= http.createServer(app);
 
 
 // const port=PORT;
-server.listen(3000,()=>console.log('listen output at 192.168.100.5:3000'));
+server.listen(4200,()=>console.log('listen output at localhost:4200'));
 
 

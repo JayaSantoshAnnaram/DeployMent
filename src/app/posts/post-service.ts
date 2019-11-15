@@ -16,7 +16,7 @@ export class PostService {
     }
     // Getting the Data 
     getData() {
-        this._http.get<{ message: string, data: any }>(`http://localhost:3000/api/post`)
+        this._http.get<{ message: string, data: any }>(`http://localhost:4200/api/post`)
             .pipe(map((postData) => {
                 return postData.data.map((postElement) => {
                     
@@ -40,7 +40,7 @@ export class PostService {
     customEventSingle = new EventEmitter<Post>();
 
     createPost(post: Post) {
-        this._http.post<{ id: string, title: string, content: string }>(`http://localhost:3000/api/post`,
+        this._http.post<{ id: string, title: string, content: string }>(`http://localhost:4200/api/post`,
             { _id: post.id, title: post.title, content: post.content },
             {
                 headers: new HttpHeaders({
@@ -56,19 +56,19 @@ export class PostService {
 
     //Deleting Post
     deletePost(id) {
-        this._http.delete(`http://localhost:3000/api/post/${id}`)
+        this._http.delete(`http://localhost:4200/api/post/${id}`)
             .subscribe(() => this.getData())
     }
 
 
     //getting the post by id for editing
      getPost(id){
-       return this._http.get<{ message: string, data: any }>(`http://localhost:3000/api/post/${id}`);
+       return this._http.get<{ message: string, data: any }>(`http://localhost:4200/api/post/${id}`);
        
     }
     //Updating the post 
     updatePost(id:string,post:Post){
-        this._http.patch(`http://localhost:3000/api/post/${id}`,
+        this._http.patch(`http://localhost:4200/api/post/${id}`,
         { _id: post.id, title: post.title, content: post.content,creator:post.creator },
             {
                 headers: new HttpHeaders({

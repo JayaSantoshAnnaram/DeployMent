@@ -496,7 +496,7 @@ let AuthService = class AuthService {
         this.isUserAunticated = false;
     }
     createUser(email, password) {
-        this._http.post(`http://localhost:3000/api/user/sign-up`, {
+        this._http.post('http://localhost:4200/api/user/sign-up', {
             'email': email,
             'password': password
         })
@@ -511,7 +511,7 @@ let AuthService = class AuthService {
     }
     // Login User 
     login(email, password) {
-        this._http.post(`http://localhost:3000/api/user/sign-in`, {
+        this._http.post(`http://localhost:4200/api/user/sign-in`, {
             'email': email,
             'password': password
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((err) => {
@@ -958,7 +958,7 @@ let PostService = class PostService {
     }
     // Getting the Data 
     getData() {
-        this._http.get(`http://localhost:3000/api/post`)
+        this._http.get(`http://localhost:4200/api/post`)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((postData) => {
             return postData.data.map((postElement) => {
                 return {
@@ -975,7 +975,7 @@ let PostService = class PostService {
     }
     ;
     createPost(post) {
-        this._http.post(`http://localhost:3000/api/post`, { _id: post.id, title: post.title, content: post.content }, {
+        this._http.post(`http://localhost:4200/api/post`, { _id: post.id, title: post.title, content: post.content }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
@@ -987,16 +987,16 @@ let PostService = class PostService {
     }
     //Deleting Post
     deletePost(id) {
-        this._http.delete(`http://localhost:3000/api/post/${id}`)
+        this._http.delete(`http://localhost:4200/api/post/${id}`)
             .subscribe(() => this.getData());
     }
     //getting the post by id for editing
     getPost(id) {
-        return this._http.get(`http://localhost:3000/api/post/${id}`);
+        return this._http.get(`http://localhost:4200/api/post/${id}`);
     }
     //Updating the post 
     updatePost(id, post) {
-        this._http.patch(`http://localhost:3000/api/post/${id}`, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
+        this._http.patch(`http://localhost:4200/api/post/${id}`, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })

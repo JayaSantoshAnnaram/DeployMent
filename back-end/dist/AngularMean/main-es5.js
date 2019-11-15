@@ -509,7 +509,7 @@ var AuthService = /** @class */ (function () {
     }
     AuthService.prototype.createUser = function (email, password) {
         var _this = this;
-        this._http.post("http://localhost:3000/api/user/sign-up", {
+        this._http.post('http://localhost:4200/api/user/sign-up', {
             'email': email,
             'password': password
         })
@@ -525,7 +525,7 @@ var AuthService = /** @class */ (function () {
     // Login User 
     AuthService.prototype.login = function (email, password) {
         var _this = this;
-        this._http.post("http://localhost:3000/api/user/sign-in", {
+        this._http.post("http://localhost:4200/api/user/sign-in", {
             'email': email,
             'password': password
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
@@ -983,7 +983,7 @@ var PostService = /** @class */ (function () {
     // Getting the Data 
     PostService.prototype.getData = function () {
         var _this = this;
-        this._http.get("http://localhost:3000/api/post")
+        this._http.get("http://localhost:4200/api/post")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (postData) {
             return postData.data.map(function (postElement) {
                 return {
@@ -1001,7 +1001,7 @@ var PostService = /** @class */ (function () {
     ;
     PostService.prototype.createPost = function (post) {
         var _this = this;
-        this._http.post("http://localhost:3000/api/post", { _id: post.id, title: post.title, content: post.content }, {
+        this._http.post("http://localhost:4200/api/post", { _id: post.id, title: post.title, content: post.content }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
@@ -1014,17 +1014,17 @@ var PostService = /** @class */ (function () {
     //Deleting Post
     PostService.prototype.deletePost = function (id) {
         var _this = this;
-        this._http.delete("http://localhost:3000/api/post/" + id)
+        this._http.delete("http://localhost:4200/api/post/" + id)
             .subscribe(function () { return _this.getData(); });
     };
     //getting the post by id for editing
     PostService.prototype.getPost = function (id) {
-        return this._http.get("http://localhost:3000/api/post/" + id);
+        return this._http.get("http://localhost:4200/api/post/" + id);
     };
     //Updating the post 
     PostService.prototype.updatePost = function (id, post) {
         var _this = this;
-        this._http.patch("http://localhost:3000/api/post/" + id, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
+        this._http.patch("http://localhost:4200/api/post/" + id, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
