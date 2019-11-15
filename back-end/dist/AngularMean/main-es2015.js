@@ -473,10 +473,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
-/* harmony import */ var src_app_alert_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/alert.component */ "./src/app/alert.component.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+/* harmony import */ var src_app_alert_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/alert.component */ "./src/app/alert.component.ts");
+
 
 
 
@@ -490,11 +492,11 @@ let AuthService = class AuthService {
         this.dialog = dialog;
         this.router = router;
         // Tokent status
-        this.tokentStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this.tokentStatus = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.isUserAunticated = false;
     }
     createUser(email, password) {
-        this._http.post('http://localhost:4200/api/user/sign-up', {
+        this._http.post(`http://localhost:3000/api/user/sign-up`, {
             'email': email,
             'password': password
         })
@@ -505,14 +507,16 @@ let AuthService = class AuthService {
     }
     handleError(err) {
         // console.log(err);
-        this.dialog.open(src_app_alert_component__WEBPACK_IMPORTED_MODULE_6__["AlertComponent"], { data: { data: err.error.Message } });
+        this.dialog.open(src_app_alert_component__WEBPACK_IMPORTED_MODULE_7__["AlertComponent"], { data: { data: err.error.Message } });
     }
     // Login User 
     login(email, password) {
-        this._http.post('http://localhost:4200//api/user/sign-in', {
+        this._http.post(`http://localhost:3000/api/user/sign-in`, {
             'email': email,
             'password': password
-        }).subscribe(data => {
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((err) => {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(this.handleError(err));
+        })).subscribe(data => {
             // Storing Authorised user ID
             this.AuthoriseduserId = data.userId;
             const tokenRecived = data.token;
@@ -531,8 +535,9 @@ let AuthService = class AuthService {
                 this.router.navigate(['/']);
             }
         }, (err) => {
-            this.handleError(err);
+            //  alert(err.error.message);
             this.tokentStatus.next(false);
+            console.log(err);
         });
     }
     // Code refracted for timing 
@@ -612,8 +617,8 @@ let AuthService = class AuthService {
 };
 AuthService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-    { type: _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
 ];
 AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -953,7 +958,7 @@ let PostService = class PostService {
     }
     // Getting the Data 
     getData() {
-        this._http.get('http://localhost:4200/api/post')
+        this._http.get(`http://localhost:3000/api/post`)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((postData) => {
             return postData.data.map((postElement) => {
                 return {
@@ -970,7 +975,7 @@ let PostService = class PostService {
     }
     ;
     createPost(post) {
-        this._http.post('http://localhost:4200/api/post', { _id: post.id, title: post.title, content: post.content }, {
+        this._http.post(`http://localhost:3000/api/post`, { _id: post.id, title: post.title, content: post.content }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
@@ -982,16 +987,16 @@ let PostService = class PostService {
     }
     //Deleting Post
     deletePost(id) {
-        this._http.delete(`http://localhost:4200/api/post/${id}`)
+        this._http.delete(`http://localhost:3000/api/post/${id}`)
             .subscribe(() => this.getData());
     }
     //getting the post by id for editing
     getPost(id) {
-        return this._http.get(`http://localhost:4200/api/post/${id}`);
+        return this._http.get(`http://localhost:3000/api/post/${id}`);
     }
     //Updating the post 
     updatePost(id, post) {
-        this._http.patch(`http://localhost:4200/api/post/${id}`, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
+        this._http.patch(`http://localhost:3000/api/post/${id}`, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
