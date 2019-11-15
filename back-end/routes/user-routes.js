@@ -29,7 +29,7 @@ router.post('/sign-in',(req,res)=>{
             
         }      
         else if(user.password!=req.body.password){
-            res.status(400).json({'Message':'Please Enter the Valid Password'})     
+            res.status(400).json({'Message':'Password is wrong please! enter the correct password'})     
         }
         else if(user.password==req.body.password){
             const token=jwt.sign({email:user.email,id:user._id},'SecretKey',{

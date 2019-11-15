@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>Error Occured</h1>\r\n<mat-dialog-content>{{data.data}}</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-button mat-dialog-close>Ok</button>\r\n</mat-dialog-actions>"
+module.exports = "<h1 mat-dialog-title>Error Occured</h1>\r\n<mat-dialog-content>{{data.data|json}}</mat-dialog-content>\r\n<mat-dialog-actions>\r\n  <button mat-button mat-dialog-close>Ok</button>\r\n</mat-dialog-actions>"
 
 /***/ }),
 
@@ -485,12 +485,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_alert_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/alert.component */ "./src/app/alert.component.ts");
-
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_alert_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/alert.component */ "./src/app/alert.component.ts");
 
 
 
@@ -504,31 +502,31 @@ var AuthService = /** @class */ (function () {
         this.dialog = dialog;
         this.router = router;
         // Tokent status
-        this.tokentStatus = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.tokentStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.isUserAunticated = false;
     }
     AuthService.prototype.createUser = function (email, password) {
         var _this = this;
-        this._http.post('http://192.168.100.5:3000/api/user/sign-up', {
+        this._http.post('http://localhost:4200/api/user/sign-up', {
             'email': email,
             'password': password
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(_this.handleError(err)); }))
+        })
             .subscribe(function () {
             alert('Account Created Successfully please Sigin into the portal for further Creating the Posts');
             _this.router.navigate(['/sign-in']);
-        }, function (err) { return console.log(err); });
+        }, function (err) { return _this.handleError(err); });
     };
     AuthService.prototype.handleError = function (err) {
         // console.log(err);
-        this.dialog.open(src_app_alert_component__WEBPACK_IMPORTED_MODULE_7__["AlertComponent"], { data: { data: err.error.Message } });
+        this.dialog.open(src_app_alert_component__WEBPACK_IMPORTED_MODULE_6__["AlertComponent"], { data: { data: err.error.Message } });
     };
     // Login User 
     AuthService.prototype.login = function (email, password) {
         var _this = this;
-        this._http.post('http://192.168.100.5:3000/api/user/sign-in', {
+        this._http.post('http://localhost:4200//api/user/sign-in', {
             'email': email,
             'password': password
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(_this.handleError(err)); })).subscribe(function (data) {
+        }).subscribe(function (data) {
             // Storing Authorised user ID
             _this.AuthoriseduserId = data.userId;
             var tokenRecived = data.token;
@@ -547,7 +545,7 @@ var AuthService = /** @class */ (function () {
                 _this.router.navigate(['/']);
             }
         }, function (err) {
-            //  alert(err.error.message);
+            _this.handleError(err);
             _this.tokentStatus.next(false);
         });
     };
@@ -628,8 +626,8 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-        { type: _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+        { type: _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
     ]; };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -980,7 +978,7 @@ var PostService = /** @class */ (function () {
     // Getting the Data 
     PostService.prototype.getData = function () {
         var _this = this;
-        this._http.get('http://192.168.100.5:3000/api/post')
+        this._http.get('http://localhost:4200/api/post')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (postData) {
             return postData.data.map(function (postElement) {
                 return {
@@ -998,7 +996,7 @@ var PostService = /** @class */ (function () {
     ;
     PostService.prototype.createPost = function (post) {
         var _this = this;
-        this._http.post('http://192.168.100.5:3000/api/post', { _id: post.id, title: post.title, content: post.content }, {
+        this._http.post('http://localhost:4200/api/post', { _id: post.id, title: post.title, content: post.content }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
@@ -1011,17 +1009,17 @@ var PostService = /** @class */ (function () {
     //Deleting Post
     PostService.prototype.deletePost = function (id) {
         var _this = this;
-        this._http.delete("http://192.168.100.5:3000/api/post/" + id)
+        this._http.delete("http://localhost:4200/api/post/" + id)
             .subscribe(function () { return _this.getData(); });
     };
     //getting the post by id for editing
     PostService.prototype.getPost = function (id) {
-        return this._http.get("http://192.168.100.5:3000/api/post/" + id);
+        return this._http.get("http://localhost:4200/api/post/" + id);
     };
     //Updating the post 
     PostService.prototype.updatePost = function (id, post) {
         var _this = this;
-        this._http.patch("http://192.168.100.5:3000/api/post/" + id, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
+        this._http.patch("http://localhost:4200/api/post/" + id, { _id: post.id, title: post.title, content: post.content, creator: post.creator }, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })

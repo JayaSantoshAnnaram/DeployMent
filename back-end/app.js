@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
 // ];
     var posts=[];
 
-app.use('/',express.static(`${__dirname}\\dist\\AngularMean`));
+// app.use('/',express.static(`${__dirname}\\dist\\AngularMean`));
 app.use(bodyparser.json())
 app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
@@ -33,8 +33,8 @@ app.use((req,res,next)=>{
 
 app.use('/api/post',routes);
 app.use('/api/user',userRoutes);
-app.use((req,res)=>{
-    res.sendFile(`${__dirname}\\dist\\AngularMean\\index.html`);
-    console.log(`${__dirname}\\dist\\AngularMean\\index.html`);
-})
+// app.use((req,res)=>{
+//     res.sendFile(`${__dirname}\\dist\\AngularMean\\index.html`);
+//     console.log(`${__dirname}\\dist\\AngularMean\\index.html`);
+// });
 module.exports=app;

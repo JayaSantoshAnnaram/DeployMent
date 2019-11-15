@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { UserModule } from '../user.model';
 import { retry, catchError } from 'rxjs/operators';
 import { EmailValidator } from '@angular/forms';
-import { Subject, throwError } from 'rxjs';
+import { Subject, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from 'src/app/alert.component';
@@ -19,7 +19,7 @@ export class AuthService {
    }
 
    createUser(email:string,password:string){
-     this._http.post('http://192.168.100.5:3000/api/user/sign-up',{
+     this._http.post(`http://localhost:3000/api/user/sign-up`,{
         'email':email,
         'password':password
       })
@@ -39,11 +39,14 @@ export class AuthService {
    AuthoriseduserId:string;
    // Login User 
    login(email:string,password:string){
-     this._http.post<{token:string,timer:number,userId:string}>('http://192.168.100.5:3000/api/user/sign-in',{
+     this._http.post<{token:string,timer:number,userId:string}>(`http://localhost:3000/api/user/sign-in`,{
        'email':email,
        'password':password
      }).pipe(catchError((err)=>{
-       return throwError(this.handleError(err))})).subscribe(data=>{
+            
+        return throwError(this.handleError(err));
+            
+     })).subscribe(data=>{
           // Storing Authorised user ID
           this.AuthoriseduserId=data.userId;
  
@@ -67,6 +70,7 @@ export class AuthService {
      },(err)=>{
       //  alert(err.error.message);
        this.tokentStatus.next(false);
+       console.log(err)
       });
      
    }
