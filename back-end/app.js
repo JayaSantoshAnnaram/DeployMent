@@ -35,8 +35,8 @@ app.use((req,res,next)=>{
 app.use('/api/post',routes);
 app.use('/api/user',userRoutes);
 app.use((req,res)=>{
-    console.log(`${__dirname}\\dist\\AngularMean\\index.html`);
-    res.sendFile(`${__dirname}\\dist\\AngularMean\\index.html`);
+    console.log(`${__dirname}//dist//AngularMean//index.html`);
+    res.sendFile(`${__dirname}//dist//AngularMean//index.html`);
     
 });
 
