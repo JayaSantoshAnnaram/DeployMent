@@ -5,7 +5,7 @@ const bodyparser=require('body-parser');
 const app=express();
 const routes=require('./routes/posts-routes');
 const userRoutes=require('./routes/user-routes');
-
+const dotenv=require('dotenv');
 
 mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.net/Post?retryWrites=true&w=majority',
 {
@@ -26,7 +26,7 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
  app.use('/',express.static(`${__dirname}\\dist\\AngularMean`));
 app.use(bodyparser.json())
 app.use((req,res,next)=>{
-    res.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
+    res.setHeader("Access-Control-Allow-Origin","*");
     res.setHeader("Access-Control-Allow-Headers","Origin,X-Requested-With,authorization,Content-Type,Accept");
     res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,PATCH,DELETE,OPTIONS");
     next();
@@ -35,7 +35,8 @@ app.use((req,res,next)=>{
 app.use('/api/post',routes);
 app.use('/api/user',userRoutes);
 app.use((req,res)=>{
-    res.sendFile(`${__dirname}\\dist\\AngularMean\\index.html`);
     console.log(`${__dirname}\\dist\\AngularMean\\index.html`);
+    res.sendFile(`${__dirname}\\dist\\AngularMean\\index.html`);
+    
 });
 module.exports=app;
