@@ -23,7 +23,8 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
     var posts=[];
 
     // Used for sending static files
- app.use('/',express.static(`${__dirname}\\dist\\AngularMean`));
+ app.use('/',express.static(`${__dirname}//dist//AngularMean`));
+ 
 app.use(bodyparser.json())
 app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin","*");
