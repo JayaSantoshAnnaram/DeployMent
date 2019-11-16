@@ -1,0 +1,29 @@
+<mat-spinner [color]="'warn'" *ngIf="spinner"></mat-spinner>
+<form (submit)="onSavePosts(formReference)" #formReference=ngForm *ngIf="!spinner">
+        <mat-card>
+                <mat-form-field>
+                    <input matInput
+                     required
+                     [ngModel]="post?.title"
+                     name="title" 
+                     #titleReference="ngModel" 
+                     placeholder="Enter Title of Post"/>
+                    <mat-error *ngIf="titleReference.invalid">Please Enter Title of Post</mat-error>
+                </mat-form-field>
+                <!-- <div>
+                    <button type="button" mat-stroked-button (click)=fileReference.click()>Pick Image</button>
+                    <input type="file" id="imageUpload" #fileReference/>
+                </div> -->
+                <mat-form-field>
+                    <textarea 
+                     required 
+                     [ngModel]="post?.content"
+                     name="content" 
+                     #contentReference="ngModel"
+                      matInput rows="6"  
+                      placeholder="Enter Content of Post"></textarea>
+                    <mat-error *ngIf="contentReference.invalid">Please Enter Content of Post</mat-error>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="accent" >Save Post</button>
+            </mat-card>
+ </form>   

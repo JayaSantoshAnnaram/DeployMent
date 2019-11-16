@@ -1,0 +1,17 @@
+
+<mat-accordion multi=true *ngIf="postsReceived.length!=0">
+    <mat-expansion-panel *ngFor="let post of postsReceived">
+        <mat-expansion-panel-header>
+            {{post.title}}
+        </mat-expansion-panel-header>
+            {{post.content}}
+            <mat-action-row *ngIf="userAuth && post.creator==authorisedUser">
+                <a mat-button color="primary"  [routerLink]="['/edit',post.id]" >EDIT</a>
+                <button mat-button color="warn" (click)="onDelete(post.id)" >DELETE</button>
+            </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf="spinner" class="mat-spinner"><mat-spinner  [color]="'warn'"></mat-spinner> </div> 
+
+<p *ngIf="postsReceived.length==0 && !spinner"  class="mat-display-1 elseBock">No Posts are Present,Please Login to Create the Post</p>
+

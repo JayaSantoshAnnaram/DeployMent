@@ -1,0 +1,15 @@
+mat-accordion{
+    display: block;
+    margin-top: 2rem;
+}
+.elseBock{
+   text-align: center;
+   font-style: italic;
+   color:blue;
+   padding-top: 20%;
+
+}
+.mat-spinner{
+    margin: auto;
+    padding-top: 20%;
+}
