@@ -17,6 +17,7 @@ import { SignInComponent } from './posts/auth/sign-in/sign-in-component';
 import { SignUpComponent } from './posts/auth/sign-up/sign-up.component';
 import { AuthenticationInterceptor } from './posts/auth/auth-interceptor.service';
 import { AlertComponent } from './alert.component';
+import { SignUpAlertComponent } from './posts/auth/sign-up/sign-up-alert/sign-up-alert.component';
 
 
 
@@ -28,7 +29,8 @@ import { AlertComponent } from './alert.component';
     PostListComponent,
     SignInComponent,
     SignUpComponent,
-    AlertComponent
+    AlertComponent,
+    SignUpAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { AlertComponent } from './alert.component';
   ],
   providers: [PostService,{provide:HTTP_INTERCEPTORS,useClass:AuthenticationInterceptor,multi:true}],
   bootstrap: [AppComponent],
-  entryComponents:[AlertComponent]
+  entryComponents:[AlertComponent,SignUpAlertComponent]
   
 })
 export class AppModule { }

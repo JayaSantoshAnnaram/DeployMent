@@ -7,6 +7,7 @@ import { Subject, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from 'src/app/alert.component';
+import { SignUpAlertComponent } from './sign-up/sign-up-alert/sign-up-alert.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class AuthService {
         'password':password
       })
       .subscribe(()=>{
-      alert('Account Created Successfully please Sigin into the portal for further Creating the Posts');
+      this.dialog.open(SignUpAlertComponent);
       this.router.navigate(['/sign-in'])},
       (err)=>this.handleError(err));     
    }
