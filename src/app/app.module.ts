@@ -49,7 +49,8 @@ import { SignUpAlertComponent } from './posts/auth/sign-up/sign-up-alert/sign-up
   ],
   providers: [PostService,{provide:HTTP_INTERCEPTORS,useClass:AuthenticationInterceptor,multi:true}],
   bootstrap: [AppComponent],
-  entryComponents:[AlertComponent,SignUpAlertComponent]
+  entryComponents:[AlertComponent,SignUpAlertComponent
+  ]
   
 })
 export class AppModule { }
