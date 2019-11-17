@@ -10,6 +10,6 @@ mat-accordion{
 
 }
 .mat-spinner{
-    
-    padding-top: 20%;
+    text-align: center;
+    padding: 20%;
 }
