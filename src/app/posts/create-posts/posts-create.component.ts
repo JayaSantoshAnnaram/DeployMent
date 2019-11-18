@@ -41,7 +41,12 @@ export class PostCreateComponent {
           this.spinner=true;
           this._postService.getPost(this.id).subscribe(data=>{
             this.spinner=false;
-            this.post={content:data.data.content,title:data.data.title,id:data.data._id,creator:null,image:data.data.image}
+            this.post={content:data.data.content,
+              title:data.data.title,
+              id:data.data._id,
+              creator:null,
+              image:data.data.image}
+              console.log(this.post);
           });
           // this._postService.getPost(this.id).subscribe((post)=>{
           //   this.post.title=post.data.title;
