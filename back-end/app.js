@@ -7,6 +7,7 @@ const routes=require('./routes/posts-routes');
 const userRoutes=require('./routes/user-routes');
 const dotenv=require('dotenv');
 
+
 mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.net/Post?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
@@ -32,6 +33,8 @@ app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,PATCH,DELETE,OPTIONS");
     next();
 });
+
+
 
 app.use('/api/post',routes);
 app.use('/api/user',userRoutes);

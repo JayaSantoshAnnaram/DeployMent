@@ -3,8 +3,28 @@ const postmodel=require('../post-model/post');
 const authentication=require('../auth-check/auth')
 const router=express.Router();
 
+const multer=require('multer');
+
+
+
+const diskStoraage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'back-end/images')
+    },
+    filename:(req,file,cb)=>{
+       if(file.mimetype.split('/')[0]=='image'){
+           cb(null,`${file.originalname}${Date.now()}.${file.mimetype.split('/')[1]}`);
+       }
+       else{
+           cb('Please Select Valid Image Format',null);
+       }
+    }
+
+})
+
+
 //Post Create Route
-router.post('',authentication,(req,res)=>{
+router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
     
     postmodel.create({
         title:req.body.title,

@@ -40,13 +40,14 @@ export class PostService {
     customEventSingle = new EventEmitter<Post>();
 
     createPost(post: Post) {
-        this._http.post<{ id: string, title: string, content: string }>(`http://localhost:3000/api/post`,
-            { _id: post.id, title: post.title, content: post.content },
-            {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
-                })
-            })
+        const postData=new FormData();
+        postData.append('_id',post.id);
+        postData.append('title',post.title);
+        postData.append('content',post.content);
+        postData.append('creator',post.creator);
+        postData.append('img',post.image,post.title);
+        this._http.post<{ id: string, title: string, content: string,image:string }>
+        (`http://localhost:3000/api/post`,postData)
             .subscribe((data) => {
                 this.getData();
                 this.router.navigate(['/']);

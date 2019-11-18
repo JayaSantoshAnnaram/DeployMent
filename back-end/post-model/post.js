@@ -14,6 +14,9 @@ const postSchema= mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'UserModel',
         required:true
+    },
+    image:{
+        type:String
     }
 });
 

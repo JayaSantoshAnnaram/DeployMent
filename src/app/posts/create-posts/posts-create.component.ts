@@ -40,7 +40,7 @@ export class PostCreateComponent {
           this.spinner=true;
           this._postService.getPost(this.id).subscribe(data=>{
             this.spinner=false;
-            this.post={content:data.data.content,title:data.data.title,id:data.data._id,creator:null}
+            this.post={content:data.data.content,title:data.data.title,id:data.data._id,creator:null,image:data.data.image}
           });
           // this._postService.getPost(this.id).subscribe((post)=>{
           //   this.post.title=post.data.title;
@@ -63,12 +63,12 @@ export class PostCreateComponent {
     //Invokes when we are creating the post
     if(this.mode==='Create'){
       var post:Post={id:null,title:this.form.value.title,content:this.form.value.content,
-        creator:null};
+        creator:null,image:this.form.value.image};
     this._postService.createPost(post);
     //Invokes when we updating the post
     }else{
       var post:Post={id:this.id,title:this.form.value.title,content:this.form.value.content,
-        creator:null};
+        creator:null,image:this.form.value.image};
       this._postService.updatePost(this.id,post)
     }
     

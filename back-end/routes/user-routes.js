@@ -3,6 +3,7 @@ const userModel=require('../post-model/user');
 const jwt=require('jsonwebtoken');
 const router=express.Router();
 
+
 router.post('/sign-up',(req,res)=>{
 
     userModel.create({
