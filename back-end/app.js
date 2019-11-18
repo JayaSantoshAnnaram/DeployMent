@@ -6,7 +6,7 @@ const app=express();
 const routes=require('./routes/posts-routes');
 const userRoutes=require('./routes/user-routes');
 const dotenv=require('dotenv');
-
+const path=require('path');
 
 mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.net/Post?retryWrites=true&w=majority',
 {
@@ -23,10 +23,16 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
 // ];
     var posts=[];
 
+    app.use(bodyparser.json());
+    app.use(bodyparser.urlencoded({extended:false}))
+
+    // sending the static image files
+    app.use('/images',express.static(path.join('back-end/images')));
+
     // Used for sending static files
- app.use('/',express.static(`${__dirname}//dist//AngularMean`));
+//  app.use('/',express.static(`${__dirname}//dist//AngularMean`));
+
  
-app.use(bodyparser.json())
 app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin","*");
     res.setHeader("Access-Control-Allow-Headers","Origin,X-Requested-With,authorization,Content-Type,Accept");

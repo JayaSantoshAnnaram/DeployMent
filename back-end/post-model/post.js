@@ -4,11 +4,11 @@ const mongoose =require('mongoose');
 const postSchema= mongoose.Schema({
     title:{
         type :String,
-        unique:true
+        
     },
     content:{
         type :String,
-        unique:true
+        
     },
     creator:{
         type:mongoose.Schema.Types.ObjectId,

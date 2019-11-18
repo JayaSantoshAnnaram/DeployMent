@@ -5,6 +5,11 @@
             {{post.title}}
         </mat-expansion-panel-header>
             {{post.content}}
+            <div style="text-align: center">
+                <hr>
+                <img class="image-preview" [src]="post.image" [alt]="post.title"/>
+                <hr>
+            </div>
             <mat-action-row *ngIf="userAuth && post.creator==authorisedUser">
                 <a mat-button color="primary"  [routerLink]="['/edit',post.id]" >EDIT</a>
                 <button mat-button color="warn" (click)="onDelete(post.id)" >DELETE</button>
@@ -14,4 +19,3 @@
 <div *ngIf="spinner" class="mat-spinner"><mat-spinner  [color]="'warn'"></mat-spinner> </div> 
 
 <p *ngIf="postsReceived.length==0 && !spinner"  class="mat-display-1 elseBock">!!!  No Posts  !!! </p>
-

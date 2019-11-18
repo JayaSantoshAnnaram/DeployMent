@@ -6,14 +6,15 @@ const router=express.Router();
 const multer=require('multer');
 
 
-
+imageName:null;
 const diskStoraage=multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'back-end/images')
     },
     filename:(req,file,cb)=>{
+        imageName=`${file.originalname}${Date.now()}.${file.mimetype.split('/')[1]}`;
        if(file.mimetype.split('/')[0]=='image'){
-           cb(null,`${file.originalname}${Date.now()}.${file.mimetype.split('/')[1]}`);
+           cb(null,imageName);
        }
        else{
            cb('Please Select Valid Image Format',null);
@@ -26,8 +27,8 @@ const diskStoraage=multer.diskStorage({
 //Post Create Route
 router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
 
-    const mimeType=req.file.mimetype.split('/')[1];
-    const imagePath=req.protocol+'://'+req.hostname+'/'+req.file.originalname+Date.now()+'.'+mimeType;
+    
+    const imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;
     console.log(imagePath);
 
     postmodel.create({
@@ -36,7 +37,6 @@ router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,
         // _id:req.body._id,
         creator:req.add.id,
         image:imagePath
-        
     }).then(data=>console.log(data)).catch(err=>console.log(err));
     
     res.status(200).json({msg:'Added SuccesFully'});
