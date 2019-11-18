@@ -1,11 +1,10 @@
 import { Component,EventEmitter, Output } from '@angular/core';
 import { Post } from '../post.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../post-service';
-import { format } from 'util';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
+import { MatDialog } from '@angular/material';
+import { ImageAlertComponent } from './image-alert-component';
 
 @Component({
   selector: 'app-post-create',
@@ -13,16 +12,27 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
   styleUrls:['./post-create.component.css']
 })
 export class PostCreateComponent {
-  constructor(private _postService:PostService,private router:Router,private activateRoute:ActivatedRoute ){
+  constructor(private _postService:PostService,
+    private router:Router,
+    private activateRoute:ActivatedRoute,
+    private imageDialog:MatDialog){
     
   }
-  title='';
-  content='';
+  // title='';
+  // content='';
   private id:string;
   private mode:string;
   post:Post;
   spinner=false
+  form:FormGroup;
   ngOnInit(){
+      // Creating Reactive Forms Approach
+      this.form=new FormGroup({
+        'title':new FormControl(null,{validators:[Validators.required]}),
+        'content':new FormControl((null),{validators:[Validators.required]}),
+        'image':new FormControl(null,{validators:[Validators.required]})
+      })
+
       this.activateRoute.paramMap.subscribe((paramMap:ParamMap)=>{
         if(paramMap.has('id')){
           this.id=paramMap.get('id');
@@ -44,27 +54,57 @@ export class PostCreateComponent {
       })     
   } 
 
-  
   // Creating Post
-  onSavePosts(form:NgForm){
-    if(form.invalid){
+  onSavePosts(){
+    if(this.form.invalid){
       return;
     }
     this.spinner=true;
     //Invokes when we are creating the post
     if(this.mode==='Create'){
-      var post:Post={id:null,title:form.value.title,content:form.value.content,creator:null};
+      var post:Post={id:null,title:this.form.value.title,content:this.form.value.content,
+        creator:null};
     this._postService.createPost(post);
     //Invokes when we updating the post
     }else{
-      var post:Post={id:this.id,title:form.value.title,content:form.value.content,creator:null};
+      var post:Post={id:this.id,title:this.form.value.title,content:this.form.value.content,
+        creator:null};
       this._postService.updatePost(this.id,post)
     }
     
-    form.resetForm();
+    this.form.reset();
     
   }
- 
+
+  // Variable used for image Preview
+  imagePreview:string=null;
+  
+  // Method used for previewing the image
+  saveImage(event:Event){
+      const file=(event.target as HTMLInputElement).files[0];
+      this.form.patchValue({'image':file});
+      this.form.get('image').updateValueAndValidity;
+      
+      
+      // Checking the image type if it is jpeg,jpg or png
+      const mimeType=this.form.value.image.type as string;
+      const imageType=(mimeType.split('/')[0]);
+      // Defining the file reader object for reading the file
+      if(imageType=='image'){
+        const filerReader=new FileReader();
+        filerReader.onload=()=>{
+          this.imagePreview=filerReader.result as string;
+        }
+        
+        filerReader.readAsDataURL(file)
+      }
+      else{
+          this.imagePreview=null;
+          this.imageDialog.open(ImageAlertComponent);
+          
+      }
+
+  }
  
    
 }

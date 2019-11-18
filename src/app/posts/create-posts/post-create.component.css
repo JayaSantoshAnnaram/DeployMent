@@ -11,3 +11,10 @@ mat-spinner{
 #imageUpload{
     visibility: hidden;
 }
+.image-preview{
+    border: 1px solid blue;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+    
+}
