@@ -5,6 +5,7 @@ import { PostService } from '../post-service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ImageAlertComponent } from './image-alert-component';
+import { ValidationComponent } from './validationPop-up/validation-component';
 
 @Component({
   selector: 'app-post-create',
@@ -57,6 +58,7 @@ export class PostCreateComponent {
   // Creating Post
   onSavePosts(){
     if(this.form.invalid){
+      this.imageDialog.open(ValidationComponent);     
       return;
     }
     this.spinner=true;

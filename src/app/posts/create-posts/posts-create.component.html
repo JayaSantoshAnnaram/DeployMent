@@ -15,7 +15,7 @@
                      formControlName="content"
                       matInput rows="6"  
                       placeholder="Enter Content of Post"></textarea>
-                    <!-- <mat-error >Please Enter Content of Post</mat-error> -->
+                    <mat-error >Please Enter Content of Post</mat-error>
                 </mat-form-field>
                 <div>
                     <button type="button" mat-stroked-button (click)=fileReference.click()>Pick Image</button>
@@ -23,6 +23,7 @@
                     name="imageUpload"
                     (change)="saveImage($event)"
                      id="imageUpload" #fileReference/>
+                     <mat-error *ngIf="fileReference.invalid">Image upload is required</mat-error>
                 </div>
                 <div style="text-align: center" *ngIf="imagePreview">
                         <hr>

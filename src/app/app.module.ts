@@ -19,6 +19,7 @@ import { AuthenticationInterceptor } from './posts/auth/auth-interceptor.service
 import { AlertComponent } from './alert.component';
 import { SignUpAlertComponent } from './posts/auth/sign-up/sign-up-alert/sign-up-alert.component';
 import { ImageAlertComponent } from './posts/create-posts/image-alert-component';
+import { ValidationComponent } from './posts/create-posts/validationPop-up/validation-component';
 
 
 
@@ -32,7 +33,8 @@ import { ImageAlertComponent } from './posts/create-posts/image-alert-component'
     SignUpComponent,
     AlertComponent,
     SignUpAlertComponent,
-    ImageAlertComponent
+    ImageAlertComponent,
+    ValidationComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,7 @@ import { ImageAlertComponent } from './posts/create-posts/image-alert-component'
   ],
   providers: [PostService,{provide:HTTP_INTERCEPTORS,useClass:AuthenticationInterceptor,multi:true}],
   bootstrap: [AppComponent],
-  entryComponents:[AlertComponent,SignUpAlertComponent,ImageAlertComponent
+  entryComponents:[AlertComponent,SignUpAlertComponent,ImageAlertComponent,ValidationComponent
   ]
   
 })
