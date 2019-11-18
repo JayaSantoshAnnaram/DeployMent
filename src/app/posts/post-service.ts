@@ -24,7 +24,8 @@ export class PostService {
                         id: postElement._id,
                         content: postElement.content,
                         title: postElement.title,
-                        creator:postElement.creator
+                        creator:postElement.creator,
+                        image:postElement.image
                     }
                 })
             }))

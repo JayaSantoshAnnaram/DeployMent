@@ -25,14 +25,19 @@ const diskStoraage=multer.diskStorage({
 
 //Post Create Route
 router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
-    
+
+    const mimeType=req.file.mimetype.split('/')[1];
+    const imagePath=req.protocol+'://'+req.hostname+'/'+req.file.originalname+Date.now()+'.'+mimeType;
+    console.log(imagePath);
+
     postmodel.create({
         title:req.body.title,
         content:req.body.content,
-        _id:req.body._id,
-        creator:req.add.id
+        // _id:req.body._id,
+        creator:req.add.id,
+        image:imagePath
         
-    }).then(data=>console.log(data));
+    }).then(data=>console.log(data)).catch(err=>console.log(err));
     
     res.status(200).json({msg:'Added SuccesFully'});
     
