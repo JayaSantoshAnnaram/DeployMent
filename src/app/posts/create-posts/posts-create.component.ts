@@ -51,13 +51,6 @@ export class PostCreateComponent {
             });
             this.imagePreview=data.data.image;
             this.id=data.data._id;
-            
-            // this.post={content:data.data.content,
-            //   title:data.data.title,
-            //   id:data.data._id,
-            //   creator:null,
-            //   image:data.data.image}
-            //   console.log(this.post);
           });
 
         }else{
@@ -83,7 +76,7 @@ export class PostCreateComponent {
     }else{
       this._postService.updatePost(this.id,this.form.value.title,this.form.value.content,this.form.value.image);
     }
-    
+    this.router.navigate(['/']);
     this.form.reset();
     
   }

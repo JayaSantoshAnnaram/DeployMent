@@ -45,9 +45,9 @@ router.patch('/:id',authentication,multer({storage:diskStoraage}).single('img'),
     
         var imagePath=req.body.img        
     if(req.file){
-         imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;    
+         imagePath=req.protocol+'://'+req.get('host')+'/back-end'+'/images'+'/'+imageName;    
     }
-    imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;    
+    imagePath=req.protocol+'://'+req.get('host')+'/back-end'+'/images'+'/'+imageName;;    
     const id=req.params.id;
     postmodel.updateOne({_id:id,creator:req.add.id},{
         title:req.body.title,
