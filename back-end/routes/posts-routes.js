@@ -12,7 +12,7 @@ const diskStoraage=multer.diskStorage({
         cb(null,'back-end/images')
     },
     filename:(req,file,cb)=>{
-        imageName=`${file.originalname}.${file.mimetype.split('/')[1]}`;
+        imageName=`${file.originalname}${Date.now()}.${file.mimetype.split('/')[1]}`;
        if(file.mimetype.split('/')[0]=='image'){
            cb(null,imageName);
        }
