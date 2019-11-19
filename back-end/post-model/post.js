@@ -12,8 +12,7 @@ const postSchema= mongoose.Schema({
     },
     creator:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'UserModel',
-        required:true
+        ref:'UserModel'
     },
     image:{
         type:String
