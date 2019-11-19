@@ -4,7 +4,7 @@ const authentication=require('../auth-check/auth')
 const router=express.Router();
 
 const multer=require('multer');
-const fs=require('fs');
+
 
  var imageName=null;
 const diskStoraage=multer.diskStorage({
@@ -12,7 +12,7 @@ const diskStoraage=multer.diskStorage({
         cb(null,'back-end/images')
     },
     filename:(req,file,cb)=>{
-        imageName=`${file.originalname}${Date.now()}.${file.mimetype.split('/')[1]}`;
+        imageName=`${file.originalname}.${file.mimetype.split('/')[1]}`;
        if(file.mimetype.split('/')[0]=='image'){
            cb(null,imageName);
        }
