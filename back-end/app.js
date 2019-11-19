@@ -26,7 +26,7 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
     app.use('/images',express.static(path.join('back-end/images')));
 
     // Used for sending static files
-//  app.use('/',express.static(`${__dirname}//dist//AngularMean`));
+    app.use('/',express.static(`${__dirname}//dist//AngularMean`));
 
  
 app.use((req,res,next)=>{
@@ -40,10 +40,10 @@ app.use((req,res,next)=>{
 
 app.use('/api/post',routes);
 app.use('/api/user',userRoutes);
-// app.use((req,res)=>{
-//     console.log(`${__dirname}//dist//AngularMean//index.html`);
-//     res.sendFile(`${__dirname}//dist//AngularMean//index.html`);
+app.use((req,res)=>{
+    console.log(`${__dirname}//dist//AngularMean//index.html`);
+    res.sendFile(`${__dirname}//dist//AngularMean//index.html`);
     
-// });
+});
 
 module.exports=app;
