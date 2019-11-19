@@ -3,6 +3,7 @@ import { Post } from '../post.model';
 import { PostService } from '../post-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { PageEvent } from '@angular/material';
 
 @Component({
     selector:'app-post-list',
@@ -11,6 +12,17 @@ import { AuthService } from '../auth/auth.service';
 })
 
 export class PostListComponent{
+
+    // Code for Angular Material Paginator
+    noOfPages=10;
+    noOfItemsinAPage=2;
+    pageSizeOptions=[1,2,5,10];
+    // Angular Material Page Change Handler
+    pageChangeHandler(pageEvent:PageEvent){
+        console.log(pageEvent);
+    }
+
+
     postsReceived:Post[]=[];
     constructor(private _postService:PostService,private _auth:AuthService){
             

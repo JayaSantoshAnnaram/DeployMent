@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/create-posts/posts-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatDialogModule, MatPaginatorModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/list-posts/post-list.component';
 import { PostService } from './posts/post-service';
@@ -51,7 +51,8 @@ import { PageNotFoundComponent } from 'src/page-not-found/page-not-found-compone
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
     
   ],
   providers: [PostService,{provide:HTTP_INTERCEPTORS,useClass:AuthenticationInterceptor,multi:true}],
