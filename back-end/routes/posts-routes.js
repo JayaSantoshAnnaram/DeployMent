@@ -4,9 +4,9 @@ const authentication=require('../auth-check/auth')
 const router=express.Router();
 
 const multer=require('multer');
+const fs=require('fs');
 
-
-imageName:null;
+ var imageName=null;
 const diskStoraage=multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'back-end/images')
@@ -26,10 +26,7 @@ const diskStoraage=multer.diskStorage({
 
 //Post Create Route
 router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
-
-    
     const imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;
-    console.log(imagePath);
 
     postmodel.create({
         title:req.body.title,
@@ -37,11 +34,39 @@ router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,
         // _id:req.body._id,
         creator:req.add.id,
         image:imagePath
-    }).then(data=>console.log(data)).catch(err=>console.log(err));
+    }).then(data=>console.log('Data Added SuccessFully')).catch(err=>console.log(err));
     
     res.status(200).json({msg:'Added SuccesFully'});
     
 });
+
+//Handler for Editing the post by ID
+router.patch('/:id',authentication,multer({storage:diskStoraage}).single('img'),(req,res,next)=>{
+    
+        var imagePath=req.body.img        
+    if(req.file){
+         imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;    
+    }
+    imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;    
+    const id=req.params.id;
+    postmodel.updateOne({_id:id,creator:req.add.id},{
+        title:req.body.title,
+        content:req.body.content,
+        creator:req.add.id,
+        image:imagePath
+    }).then((modifiedData)=>{
+        if(modifiedData.nModified>0){
+            res.status(201).json({
+                'message':'PostUpdated Successfully' 
+            })
+        }
+        res.status(400).json({
+            'message':' You\'re are not authorised to edit'
+        })        
+    }).catch(err=>console.log(err));
+});
+
+
 
 //Get All Posts Route
 router.get('',(req,res,next)=>{
@@ -58,8 +83,10 @@ router.get('',(req,res,next)=>{
 //Handler for deleting Route
 router.delete('/:id',authentication,(req,res,next)=>{
     const id=req.params.id;
+    
     postmodel
     postmodel.deleteOne({_id:id,creator:req.add.id}).then(deletedData=>{
+        
         if(deletedData.n>0){
             res.status(201).json({
                 'message':'Data Deleted',
@@ -86,25 +113,6 @@ router.get('/:id',(req,res,next)=>{
     .catch (err=>res.end('Data Not Deleted'))
 });
 
-//Handler for Editing the post by ID
-router.patch('/:id',authentication,(req,res,next)=>{
-    const id=req.params.id;
-    postmodel.updateOne({_id:id,creator:req.add.id},{
-        title:req.body.title,
-        content:req.body.content,
-        creator:req.add.id
-    }).then((modifiedData)=>{
-        if(modifiedData.nModified>0){
-            res.status(201).json({
-                'message':'PostUpdated Successfully' 
-            })
-        }
-        res.status(400).json({
-            'message':' You\'re are not authorised to edit'
-        })
 
-        
-    });
-});
 
 module.exports=router;

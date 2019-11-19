@@ -69,16 +69,33 @@ export class PostService {
        
     }
     //Updating the post 
-    updatePost(id:string,post:Post){
-        this._http.patch(`http://localhost:3000/api/post/${id}`,
-        { _id: post.id, title: post.title, content: post.content,creator:post.creator },
-            {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
-                })
-            }).subscribe(()=>{
+    updatePost(id:string,title:string,content:string,image:string|File){
+        if(typeof(image)==='object'){
+            const formData=new FormData();
+            formData.append('_id',id);
+            formData.append('title',title);
+            formData.append('content',content);
+            formData.append('img',image);
+
+            this._http.patch(`http://localhost:3000/api/post/${id}`,formData)
+            .subscribe(()=>{
                 this.router.navigate(['/']);
-            });  
+            },
+            err=>console.error(err));
+        }
+        else{
+            this._http.patch(`http://localhost:3000/api/post/${id}`,
+            { _id: id, title:title, content:content,img:image},
+                {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json'
+                    })
+                }).subscribe(()=>{
+                    this.router.navigate(['/']);
+                });
+        }
+        
+  
         }
 
 

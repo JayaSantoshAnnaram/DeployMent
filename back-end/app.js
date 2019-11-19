@@ -16,11 +16,7 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
 }).then(()=>console.log('DB Connected SuccesSfully'))
 .catch((err)=>{console.log('ERROR Occured In DB Connection',err)});
 
-// var post=[
-//     {id:'sfsfsfs',title:'First Post Title',content:'First Post Content'},
-//     {id:'fsfsf',title:'Second Post Title',content:'First Post Content !!!!'},
-//     {id:'njnfs',title:'Third Post Title',content:'!!!!1First Post Content'},
-// ];
+
     var posts=[];
 
     app.use(bodyparser.json());

@@ -19,8 +19,7 @@ export class PostCreateComponent {
     private imageDialog:MatDialog){
     
   }
-  // title='';
-  // content='';
+
   private id:string;
   private mode:string;
   post:Post;
@@ -34,25 +33,33 @@ export class PostCreateComponent {
         'image':new FormControl(null,{validators:[Validators.required]})
       })
 
+        // Getting the ID of Post for editing its content
       this.activateRoute.paramMap.subscribe((paramMap:ParamMap)=>{
         if(paramMap.has('id')){
           this.id=paramMap.get('id');
           this.mode='Edit';
           this.spinner=true;
+
+          // Code for getting  post details corresponding to fetched active Id
           this._postService.getPost(this.id).subscribe(data=>{
             this.spinner=false;
-            this.post={content:data.data.content,
+            // Updating The form Details
+            this.form.patchValue({
               title:data.data.title,
-              id:data.data._id,
-              creator:null,
-              image:data.data.image}
-              console.log(this.post);
+              content:data.data.content,
+              image:data.data.image
+            });
+            this.imagePreview=data.data.image;
+            this.id=data.data._id;
+            
+            // this.post={content:data.data.content,
+            //   title:data.data.title,
+            //   id:data.data._id,
+            //   creator:null,
+            //   image:data.data.image}
+            //   console.log(this.post);
           });
-          // this._postService.getPost(this.id).subscribe((post)=>{
-          //   this.post.title=post.data.title;
-          //   this.post.content=post.data.content;
-          // });
-          // console.log(this.post);
+
         }else{
           this.mode='Create';
           this.id=null;
@@ -74,9 +81,7 @@ export class PostCreateComponent {
     this._postService.createPost(post);
     //Invokes when we updating the post
     }else{
-      var post:Post={id:this.id,title:this.form.value.title,content:this.form.value.content,
-        creator:null,image:this.form.value.image};
-      this._postService.updatePost(this.id,post)
+      this._postService.updatePost(this.id,this.form.value.title,this.form.value.content,this.form.value.image);
     }
     
     this.form.reset();
