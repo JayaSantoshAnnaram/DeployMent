@@ -26,8 +26,8 @@ const diskStoraage=multer.diskStorage({
 
 //Post Create Route
 router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
-    const imagePath=req.protocol+'://'+req.get('host')+'/images'+'/'+imageName;
-
+    const imagePath=req.protocol+'://'+req.get('host')+'/back-end'+'/images'+'/'+imageName;
+    console.log("iamge path",imagePath)
     postmodel.create({
         title:req.body.title,
         content:req.body.content,

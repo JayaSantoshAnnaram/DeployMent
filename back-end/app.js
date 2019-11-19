@@ -24,7 +24,7 @@ mongoose.connect('mongodb+srv://MEANMEAN:ajsajs*830*001@cluster0-7dbb8.mongodb.n
 
     // sending the static image files
     // app.use('/images',express.static(path.join('back-end/images')));
-    app.use('/images',express.static(`${__dirname}//images`));
+    app.use('/back-end/images',express.static(`${__dirname}//images`));
 
     // Used for sending static files
     app.use('/',express.static(`${__dirname}//dist//AngularMean`));
