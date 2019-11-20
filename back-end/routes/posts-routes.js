@@ -79,7 +79,7 @@ router.get('',(req,res,next)=>{
     postQuery
     .then(data=>{
         dataFetched=data; 
-           return postmodel.count(); 
+           return postmodel.countDocuments(); 
     }).then(count=>{
         res.status(200).json({
             'message':'Post Data Success',
