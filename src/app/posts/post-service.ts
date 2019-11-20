@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Post } from './post.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -21,7 +20,7 @@ export class PostService {
     getData() {
         // Code for creating the Query Parameters
         const queryParams=`?pageSize=${this.pageSize}&currentPage=${this.currentPage}`
-        this._http.get<{ message: string, posts: any,postCount:number }>(`api/post`+queryParams)
+        this._http.get<{ message: string, posts: any,postCount:number }>(`http://localhost:3000/api/post`+queryParams)
             .pipe(map((postData) => {
                 return {Post:postData.posts.map((postcontent) => {     
                     return {
@@ -54,7 +53,7 @@ export class PostService {
         postData.append('creator',post.creator);
         postData.append('img',post.image,post.title);
         this._http.post<{ id: string, title: string, content: string,image:string }>
-        (`api/post`,postData)
+        (`http://localhost:3000/api/post`,postData)
             .subscribe((data) => {
                 this.getData();
                 this.router.navigate(['/']);
@@ -64,14 +63,14 @@ export class PostService {
 
     //Deleting Post
     deletePost(id) {
-        this._http.delete(`api/post/${id}`)
+        this._http.delete(`http://localhost:3000/api/post/${id}`)
             .subscribe(() => this.getData())
     }
 
 
     //getting the post by id for editing
      getPost(id){
-       return this._http.get<{ message: string, data: any }>(`api/post/${id}`);
+       return this._http.get<{ message: string, data: any }>(`http://localhost:3000/api/post/${id}`);
        
     }
     //Updating the post 
@@ -83,14 +82,14 @@ export class PostService {
             formData.append('content',content);
             formData.append('img',image);
 
-            this._http.patch(`api/post/${id}`,formData)
+            this._http.patch(`http://localhost:3000/api/post/${id}`,formData)
             .subscribe(()=>{
                 this.router.navigate(['/']);
             },
             err=>console.error(err));
         }
         else{
-            this._http.patch(`api/post/${id}`,
+            this._http.patch(`http://localhost:3000/api/post/${id}`,
             { _id: id, title:title, content:content,img:image},
                 {
                     headers: new HttpHeaders({

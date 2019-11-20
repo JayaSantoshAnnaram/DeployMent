@@ -21,6 +21,7 @@ import { SignUpAlertComponent } from './posts/auth/sign-up/sign-up-alert/sign-up
 import { ImageAlertComponent } from './posts/create-posts/image-alert-component';
 import { ValidationComponent } from './posts/create-posts/validationPop-up/validation-component';
 import { PageNotFoundComponent } from 'src/page-not-found/page-not-found-component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -36,7 +37,8 @@ import { PageNotFoundComponent } from 'src/page-not-found/page-not-found-compone
     SignUpAlertComponent,
     ImageAlertComponent,
     ValidationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

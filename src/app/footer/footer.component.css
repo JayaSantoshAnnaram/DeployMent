@@ -1,0 +1,33 @@
+
+mat-toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+}
+.mainDiv{
+    font-size: 1rem;
+    align-items: center;
+    display: flex;
+}
+
+.div1{
+    position: fixed;
+    left: 1;    
+    padding:auto;
+}
+
+.div2{
+    position: fixed;
+    left:35%;
+    padding:auto;
+    
+}
+.div3{
+    position: fixed;
+    left: 69%;
+    padding:auto;
+}
+a{
+    color: white;
+}
