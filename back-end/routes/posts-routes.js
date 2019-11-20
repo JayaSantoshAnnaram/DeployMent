@@ -70,7 +70,14 @@ router.patch('/:id',authentication,multer({storage:diskStoraage}).single('img'),
 
 //Get All Posts Route
 router.get('',(req,res,next)=>{
-    postmodel.find()
+    const pageSize=+req.query.pageSize;
+    const currentPage=+req.query.currentPage;
+    console.log(req.query);
+    const postQuery=postmodel.find();
+    if(pageSize && currentPage){
+        postQuery.skip(pageSize*(currentPage-1)).limit(pageSize);
+    }
+    postQuery.find()
     .then(data=>{
         res.status(200).json({
             'message':'Post Data Success',

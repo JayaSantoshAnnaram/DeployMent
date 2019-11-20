@@ -15,11 +15,15 @@ export class PostListComponent{
 
     // Code for Angular Material Paginator
     noOfPages=10;
-    noOfItemsinAPage=2;
+    pageSize=1;
     pageSizeOptions=[1,2,5,10];
+    currentPage=1
     // Angular Material Page Change Handler
     pageChangeHandler(pageEvent:PageEvent){
         console.log(pageEvent);
+        this._postService.currentPage=pageEvent.pageIndex+1;
+        this._postService.pageSize=pageEvent.pageSize;
+        this._postService.getData();
     }
 
 

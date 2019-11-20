@@ -17,10 +17,12 @@
     </mat-expansion-panel>
 </mat-accordion>
 <mat-paginator [length]="noOfPages" 
-               [pageSize]="noOfItemsinAPage"
+               [pageSize]="pageSize"
                 [pageSizeOptions]="pageSizeOptions" 
                 (page)="pageChangeHandler($event)"
-                ></mat-paginator>
+                *ngIf="postsReceived.length!=0">
+</mat-paginator>
+
 <div *ngIf="spinner" class="mat-spinner"><mat-spinner  [color]="'warn'"></mat-spinner> </div> 
 
 <p *ngIf="postsReceived.length==0 && !spinner"  class="mat-display-1 elseBock">!!!  No Posts  !!! </p>

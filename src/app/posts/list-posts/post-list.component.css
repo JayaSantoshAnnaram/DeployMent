@@ -22,3 +22,6 @@ mat-accordion{
   width: 150px;
     
 }
+mat-paginator{
+    margin-top: 1rem;
+}
