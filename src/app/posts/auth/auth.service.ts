@@ -20,7 +20,7 @@ export class AuthService {
    }
 
    createUser(email:string,password:string){
-     this._http.post('http://localhost:3000/api/user/sign-up',{
+     this._http.post('api/user/sign-up',{
         'email':email,
         'password':password
       })
@@ -40,7 +40,7 @@ export class AuthService {
    AuthoriseduserId:string;
    // Login User 
    login(email:string,password:string){
-     this._http.post<{token:string,timer:number,userId:string}>(`http://localhost:3000/api/user/sign-in`,{
+     this._http.post<{token:string,timer:number,userId:string}>(`api/user/sign-in`,{
        'email':email,
        'password':password
      }).pipe(catchError((err)=>{

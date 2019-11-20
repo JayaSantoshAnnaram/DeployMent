@@ -18,3 +18,7 @@ mat-spinner{
   width: 150px;
     
 }
+.scroll{
+    overflow-y: auto;
+height: 50rem;
+}
