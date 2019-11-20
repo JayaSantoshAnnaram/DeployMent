@@ -27,7 +27,6 @@ const diskStoraage=multer.diskStorage({
 //Post Create Route
 router.post('',authentication,multer({storage:diskStoraage}).single('img'),(req,res)=>{
     const imagePath=req.protocol+'://'+req.get('host')+'/back-end'+'/images'+'/'+imageName;
-    console.log("iamge path",imagePath)
     postmodel.create({
         title:req.body.title,
         content:req.body.content,
@@ -72,16 +71,20 @@ router.patch('/:id',authentication,multer({storage:diskStoraage}).single('img'),
 router.get('',(req,res,next)=>{
     const pageSize=+req.query.pageSize;
     const currentPage=+req.query.currentPage;
-    console.log(req.query);
+    let dataFetched;
     const postQuery=postmodel.find();
     if(pageSize && currentPage){
         postQuery.skip(pageSize*(currentPage-1)).limit(pageSize);
     }
-    postQuery.find()
+    postQuery
     .then(data=>{
+        dataFetched=data; 
+           return postmodel.count(); 
+    }).then(count=>{
         res.status(200).json({
             'message':'Post Data Success',
-            data
+            posts:dataFetched,
+            postCount:count
         });
     })
     .catch(err=>console.log('error occured'));

@@ -20,7 +20,6 @@ export class PostListComponent{
     currentPage=1
     // Angular Material Page Change Handler
     pageChangeHandler(pageEvent:PageEvent){
-        console.log(pageEvent);
         this._postService.currentPage=pageEvent.pageIndex+1;
         this._postService.pageSize=pageEvent.pageSize;
         this._postService.getData();
@@ -36,6 +35,7 @@ export class PostListComponent{
     spinner:boolean=true;
     subsciption:Subscription;
     userStatusSubsciption:Subscription;
+    postCountSubscription:Subscription;
 
     // User authentication Variable 
     userAuth:boolean=false;
@@ -46,6 +46,7 @@ export class PostListComponent{
         this.subsciption=this._postService.customEvent.subscribe(data=>{this.postsReceived=data
         this.spinner=false;
         });
+        this.postCountSubscription=this._postService.postCount.subscribe(data=>this.noOfPages=data);
 
          this._postService.getData();
          // Getting the status of user whether is authenticated or not 
@@ -62,5 +63,6 @@ export class PostListComponent{
     ngOnDestroy(){
         this.subsciption.unsubscribe();
         this.userStatusSubsciption.unsubscribe();
+        this.postCountSubscription.unsubscribe();
     }
 }

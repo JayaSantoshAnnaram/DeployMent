@@ -19,29 +19,30 @@ export class PostService {
     
     // Getting the Data 
     getData() {
+        // Code for creating the Query Parameters
         const queryParams=`?pageSize=${this.pageSize}&currentPage=${this.currentPage}`
-        console.log(queryParams);
-        this._http.get<{ message: string, data: any }>(`http://localhost:3000/api/post`+queryParams)
+        this._http.get<{ message: string, posts: any,postCount:number }>(`http://localhost:3000/api/post`+queryParams)
             .pipe(map((postData) => {
-                return postData.data.map((postElement) => {
-                    
+                return {Post:postData.posts.map((postcontent) => {     
                     return {
-                        id: postElement._id,
-                        content: postElement.content,
-                        title: postElement.title,
-                        creator:postElement.creator,
-                        image:postElement.image
+                        id: postcontent._id,
+                        content: postcontent.content,
+                        title: postcontent.title,
+                        creator:postcontent.creator,
+                        image:postcontent.image
                     }
-                })
+                }),PostCount:postData.postCount}
             }))
-            .subscribe((dataM) => {
-                this.customEvent.emit(dataM);
+            .subscribe((post) => {
+                this.customEvent.emit(post.Post);
+                this.postCount.emit(post.PostCount);
             }
             )
     };
 
 
     // Custom even which emits the post on create
+    postCount=new EventEmitter<number>();
     customEvent = new EventEmitter<Post[]>();
     customEventSingle = new EventEmitter<Post>();
 
