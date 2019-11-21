@@ -5,8 +5,8 @@
                     <input matInput
                      name="title" 
                      formControlName="title"
-                     placeholder="Enter Title of Post"/>
-                    <mat-error  >Please Enter Title of Post</mat-error>
+                     placeholder="Enter Title of Complaint"/>
+                    <mat-error  >Complaint Title is Mandatory</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -14,8 +14,8 @@
                      name="content" 
                      formControlName="content"
                       matInput rows="6"  
-                      placeholder="Enter Content of Post"></textarea>
-                    <mat-error >Please Enter Content of Post</mat-error>
+                      placeholder="Describe Brifely about Complaint"></textarea>
+                    <mat-error >Complaint Description is Mandatory</mat-error>
                 </mat-form-field>
                 <div>
                     <button type="button" mat-stroked-button (click)=fileReference.click()>Pick Image</button>
@@ -32,7 +32,7 @@
 
                 <div>
                     <hr>
-                    <button type="submit"  mat-raised-button color="accent" >Save Post</button>
+                    <button type="submit"  mat-raised-button color="accent" >Register Complaint</button>
                 </div>
                 
             </mat-card>
